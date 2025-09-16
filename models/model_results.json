@@ -1,0 +1,53 @@
+{
+    "Logistic Regression": {
+        "Best score": 0.7723229989101668,
+        "Best params": {
+            "classifier__C": 10.0,
+            "classifier__max_iter": 2000,
+            "preprocessor__num__poly__degree": 1
+        },
+        "Precision_score": 0.5682672233820459,
+        "recall_score": 0.7392721347093971,
+        "f1_score": 0.6425873465533523,
+        "accuracy_score": 0.8448452551752408
+    },
+    "Decision Trees": {
+        "Best score": 0.7962236441478071,
+        "Best params": {
+            "classifier__max_depth": 10,
+            "classifier__min_samples_split": 100,
+            "preprocessor__num__poly__degree": 1
+        },
+        "Precision_score": 0.6446764091858037,
+        "recall_score": 0.7373447946513849,
+        "f1_score": 0.6879037647582981,
+        "accuracy_score": 0.8564254970280796
+    },
+    "Random Forest Classifier": {
+        "Best score": 0.7997324877663408,
+        "Best params": {
+            "classifier__max_depth": null,
+            "classifier__min_samples_split": 100,
+            "classifier__n_estimators": 100,
+            "preprocessor__num__poly__degree": 1
+        },
+        "Precision_score": 0.6146137787056367,
+        "recall_score": 0.7702773417059131,
+        "f1_score": 0.683697166744078,
+        "accuracy_score": 0.8604222176675548
+    },
+    "XGB Classifier": {
+        "Best score": 0.8158284960224631,
+        "Best params": {
+            "classifier__learning_rate": 0.5,
+            "classifier__max_depth": 3,
+            "classifier__n_estimators": 120,
+            "classifier__reg_lambda": 0.1,
+            "preprocessor__num__poly__degree": 1
+        },
+        "Precision_score": 0.6601252609603341,
+        "recall_score": 0.7700925474914759,
+        "f1_score": 0.7108812949640287,
+        "accuracy_score": 0.8682106989137118
+    }
+}
