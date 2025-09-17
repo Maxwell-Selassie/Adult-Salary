@@ -58,30 +58,94 @@ Capital Gain, Capital Loss
 
 The workflow followed:
 
-**Data Cleaning & Preprocessing**
+*Data cleaning & preprocessing*
 
-Handling missing values (e.g., “?” entries)
+Handle missing values (?) and obvious data issues
 
-Scaling & polynomial feature expansion for numeric variables
+Scale numeric features and optionally expand with polynomial features for modelling experiments
 
-**Encoding categorical variables**
+*Encoding*
 
-One-Hot Encoding for low-cardinality columns
+One-Hot Encoding for low-cardinality categorical features (for interpretability)
 
-Target Encoding for high-cardinality columns
+Target encoding for high-cardinality features where necessary (tradeoff: performance vs interpretability)
 
-**Modeling**
+Note: For final interpretability (SHAP), a one-hot encoded pipeline was trained so SHAP outputs show concrete categories (e.g., occupation=Exec-managerial).
 
-Tried multiple models: Logistic Regression, Decision Trees, Random Forest, XGBoost
+*Modeling*
 
-Hyperparameter tuning with GridSearchCV + Cross-Validation
+Models tried: Logistic Regression, Decision Tree, Random Forest, XGBoost
 
-Evaluation based on Log Loss, Accuracy, Precision, Recall, F1-score
+Hyperparameter tuning via GridSearchCV with cross-validation
 
-**Interpretation**
+Primary evaluation metrics: Accuracy, Precision, Recall, F1, Log Loss; for final model also ROC-AUC and F1 (class-aware)
 
-Identified key drivers of income using feature importance and coefficients
+*Interpretation*
 
-Compared education vs occupation vs workclass impact
+Global importance via feature importances of tree models
+
+Local + global effects via SHAP (shows direction and magnitude per feature and per sample)
+
+***Interpreting SHAP & feature importance — one clear rule***
+
+Feature importance (bar chart): tells which features the model uses most often (global frequency of use).
+
+SHAP (summary plot): tells how features move predictions (direction + magnitude) for individuals.
+
+Short SHAP clarification for readers:
+In SHAP plots, red = higher feature value, blue = lower feature value; the horizontal position shows whether that value pushes a prediction up (right) or down (left).
 
 
+***Insights***
+*EDUCATION*
+*Findings* - Higher education shows a strong positive SHAP contribution towards earning >50K
+Education matters - advanced degrees increase income potential but plateaus after a certain level (eg: beyond Master's Degree, the marginal gain is minimal). In essence, education improves pay, but it's not the only driver.
+
+*OCCUPATION*
+*findings*
+Certain occupations consistenly push SHAP values upwards, meaning they increase chances of earning > 50K, in contrast, roles like Handlers-cleaners, Farming-fishing and Other-service push SHAP values downwards
+- Therefore, career choice is a stronger determinant than just education. Someone with average education in the right occupation can out-earn a highly educated person in a low-paying occupation
+
+*WORKCLASS*
+*findings*
+Workclass is not linear, but in summary, self employed individuals who run a structured, formalized business tend to earn higher than casual self-employed individuals. 
+- Sophisticated self-employed individuals earn slightly higher than federal or state workers
+
+*AGE*
+- Income grows with age - the older the you are, the more likely you are to earn above 50K yearly.
+
+*HOURS WORKED PER WEEK*
+- The hours an individual spends on the job per week is also a positive contributor to income. In essence, if you spend more hours on the job, you most likely tend to earn above 50K
+
+*CAPITAL GAIN*
+- Capital gain also contributes to income but mostly reflects investments - those with significant capital gains almost always earn above 50K
+
+![Feature Importance](plots/feature_importance.png)
+Figure 1: Top 20 feature importance (XGBoost)
+
+***BUSINESS AND PERSONAL INSIGHTS***
+*FOR POLICY MAKERS* - Investing in education yields returns, but creating high-paying job opportunities matter more than just producing more graduates
+
+*FOR BUSINESS* - Compensation programs should reward occupation-specific and experience-based skills, not only credentials. Training that targets occupational competencies (management, technical depth) delivers stronger ROI.
+
+*ASPIRING ENTREPPRENEURS* - Formalizing a business (incorporation, scalable model) improves income prospects over informal self-employment.
+
+***MY PERSONAL INSIGHTS***
+- Education is valuable but occupation choice and practical skills matter more for income.
+- If I pursue entrepreneurship, I’ll focus on formalizing the business and building financial literacy/investment strategies.
+- Data science (my chosen path) is both occupation-sensitive and skill-heavy — a good match for income and growth potential.
+
+*LIMITATIONS*
+
+- The dataset is U.S.-based (1994). Applying results to Ghana is illustrative, not definitive.
+
+- Features reflect correlation, not causation — SHAP explains model behavior, not causal effects.
+
+- Income dynamics and job markets have changed since 1994; treat the analysis as structural insight rather than exact predictions.
+
+In essence, education is important, but career choice is even more important. I choose to be a Data Scientist, with potential for growth in the future. 
+
+***WISH ME LUCK!!!***
+
+![SHAP Summary](plots/shap_sumary.png)
+*Figure 3: SHAP summary plot — color = value (red=high, blue=low), horizontal position = effect on prediction.*
